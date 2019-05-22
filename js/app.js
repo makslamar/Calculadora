@@ -1,0 +1,4 @@
+var calculadora = function(){
+
+};
+calculadora();
