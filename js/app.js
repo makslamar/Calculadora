@@ -1,6 +1,6 @@
 var calculadora = {
   inicializar: function(){
-    //** declaro variables **//
+     //** declaro variables **//
      var uno = document.getElementById("1");
      var dos = document.getElementById("2");
      var tres = document.getElementById("3");
@@ -20,6 +20,8 @@ var calculadora = {
      var on = document.getElementById("on");
      var sign = document.getElementById("sign");
      var raiz = document.getElementById("raiz");
+     var pantalla = document.getElementById("display");
+
     //**Interactividad de los botones - Cambio de tamaño**//
     uno.addEventListener("mousedown",function(){
     uno.setAttribute("style","transform:scale(0.85,0.85)")
@@ -154,6 +156,55 @@ var calculadora = {
     raiz.setAttribute("style","transform:scale(1,1)")
     });
 
+
+    //**Mostrar numero en pantalla**//
+    uno.addEventListener("click",function(){
+        escribir("1");
+    });
+    dos.addEventListener("click",function(){
+        escribir("2");
+    });
+    tres.addEventListener("click",function(){
+        escribir("3");
+    });
+    cuatro.addEventListener("click",function(){
+        escribir("4");
+    });
+    cinco.addEventListener("click",function(){
+        escribir("5");
+    });
+    seis.addEventListener("click",function(){
+        escribir("6");
+    });
+    siete.addEventListener("click",function(){
+        escribir("7");
+    });
+    ocho.addEventListener("click",function(){
+        escribir("8");
+    });
+    nueve.addEventListener("click",function(){
+        escribir("9");
+    });
+    cero.addEventListener("click",function(){
+        escribir("0");
+    });
+    punto.addEventListener("click",function(){
+        escribir(".");
+    });
+
+    escribir(numero){
+      if (display.textContent!=0){
+        display.textContent+=numero;
+      }else{
+        display.textContent=numero;
+      }
+    }
+
+
+   //**Boton ON/C para borrar display y poner cero**//
+   on.addEventListener("click",function(){
+       display.textContent="0";
+   });
   }
 };
 calculadora.inicializar();
