@@ -192,13 +192,13 @@ var calculadora = {
         escribir(".");
     });
 
-    escribir(numero){
+    function escribir(numero){
       if (display.textContent!=0){
         display.textContent+=numero;
       }else{
         display.textContent=numero;
       }
-    }
+    };
 
 
    //**Boton ON/C para borrar display y poner cero**//
@@ -206,5 +206,7 @@ var calculadora = {
        display.textContent="0";
    });
   }
+
+  //****//
 };
 calculadora.inicializar();
