@@ -198,6 +198,11 @@ var calculadora = {
       }else{
         display.textContent=numero;
       }
+
+    function comprobacionPunto(){
+       var display.textContent=
+    }
+
     };
 
 
