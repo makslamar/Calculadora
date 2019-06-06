@@ -189,29 +189,28 @@ var calculadora = {
         escribir("0");
     });
     punto.addEventListener("click",function(){
-        escribir(".");
+        escribirPunto(".");
     });
 
     function escribir(numero){
-      if (display.textContent!=0){
+      if (display.textContent!="0"){
         display.textContent+=numero;
-      }else{
-        display.textContent=numero;
-      }
+      } else {display.textContent=numero;}
+     }
 
-    function comprobacionPunto(){
-       var display.textContent=
-    }
+     function escribirPunto(numeroPunto){
+         if(display.innerHTML.indexOf(".")==-1){
+                display.innerHTML +=numeroPunto
+         };
+     };
 
-    };
 
 
    //**Boton ON/C para borrar display y poner cero**//
    on.addEventListener("click",function(){
        display.textContent="0";
    });
-  }
-
-  //****//
+ }
+  //**Inicializa Calculadora**//
 };
 calculadora.inicializar();
