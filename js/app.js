@@ -192,16 +192,28 @@ var calculadora = {
         escribirPunto(".");
     });
 
+    sign.addEventListener("click",function(){
+        escribirSign();
+    });
+
     function escribir(numero){
-      if (display.textContent!="0"){
-        display.textContent+=numero;
-      } else {display.textContent=numero;}
+       if(display.innerHTML.length<8){
+          if (display.textContent!="0"){
+            display.textContent+=numero;
+          } else {display.textContent=numero;}
+       }
      }
 
      function escribirPunto(numeroPunto){
          if(display.innerHTML.indexOf(".")==-1){
                 display.innerHTML +=numeroPunto
          };
+     };
+
+     function escribirSign(){
+       if(display.textContent!="0"){
+         display.innerHTML=display.innerHTML*-1
+       }
      };
 
 
