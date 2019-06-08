@@ -22,6 +22,7 @@ var calculadora = {
      var raiz = document.getElementById("raiz");
      var pantalla = document.getElementById("display");
 
+
     //**Interactividad de los botones - Cambio de tamaño**//
     uno.addEventListener("mousedown",function(){
     uno.setAttribute("style","transform:scale(0.85,0.85)")
@@ -212,23 +213,15 @@ var calculadora = {
         calculo("dividido");
     });
 
-    function acomodarDisplay(){
-       var cadena = display.innerHTML;
-       var numero = parseFloat(cadena);
-       if (cadena.lenght>limite){
-           if(numero - numero.toFixed(0)==0){
-              display.innerHTML = numero;
-           } else{display.innerHTML = parseFloat(cadena).toPrecision(8)}
-       }
-    }
 
+    //**Validaciones para escribir en pantalla**//
     function escribir(numero){
        if(display.innerHTML.length<8){
           if (display.innerHTML!="0"){
             display.innerHTML+=numero;
-          } else {display.innerHTML=numero;}
-       }
-     }
+          } else {display.innerHTML=numero}
+       };
+     };
 
      function escribirPunto(numeroPunto){
          if(display.innerHTML.indexOf(".")==-1){
@@ -239,64 +232,87 @@ var calculadora = {
      function escribirSign(){
        if(display.innerHTML!="0"){
          display.innerHTML=display.innerHTML*-1
-       }
+       };
      };
 
+      //**Formatear igual.addEventListener clonando el listener, esto permite la concatenacion de operaciones**//
+      function formatearIgual(){
+            var newigual = igual.cloneNode(true);
+            igual.parentNode.replaceChild(newigual, igual);
+            igual = newigual;
+            igual.addEventListener("mousedown", function () {
+            igual.setAttribute("style", "transform:scale(0.85,0.85)")
+            });
+            igual.addEventListener("mouseup", function () {
+            igual.setAttribute("style", "transform:scale(1,1)")
+            });
+      }
 
+
+     //**   Operaciones Aritmeticas    **//
      function calculo(operador){
 
-        if(operador="mas"){
-           var sumando1=display.innerHTML;
-           display.innerHTML="0";
-           igual.addEventListener("click",function(){
-                var sumando2=display.innerHTML;
-                var total=(parseFloat(sumando1)+parseFloat(sumando2));
-                display.innerHTML =parseFloat(total);
-                acomodarDisplay()
-           });
-        };
+            if (operador == "mas") {
+                var sumando1 = display.innerHTML;
+                display.innerHTML = " ";
+                formatearIgual();
+                igual.addEventListener("click", function (ev) {
+                    ev.preventDefault();
+                    var sumando2 = display.innerHTML;
+                    var totalSuma = (parseFloat(sumando1) + parseFloat(sumando2));
+                    var totalPantallaSuma=String(totalSuma).slice(0,8);
+                    display.innerHTML = parseFloat(totalPantallaSuma);
+                    });
+                };
 
-        if(operador="menos"){
-           var minuendo=display.innerHTML;
-           display.innerHTML="0";
-           igual.addEventListener("click",function(){
-                var sustraendo=display.innerHTML;
-                var total=((parseFloat(minuendo))-(parseFloat(sustraendo)));
-                display.innerHTML =parseFloat(total);
-                acomodarDisplay()
-           });
-        };
+            if(operador=="menos"){
+               var minuendo=display.innerHTML;
+               display.innerHTML=" ";
+               formatearIgual();
+               igual.addEventListener("click",function(ev){
+                    ev.preventDefault();
+                    var sustraendo=display.innerHTML;
+                    var totalMenos=((parseFloat(minuendo))-(parseFloat(sustraendo)));
+                    var totalPantallaMenos=String(totalMenos).slice(0,8);
+                    display.innerHTML =parseFloat(totalPantallaMenos);
+               });
+            };
 
-        if(operador="por"){
-           var factor1=display.innerHTML;
-           display.innerHTML="0";
-           igual.addEventListener("click",function(){
-                var factor2=display.innerHTML;
-                var total=(parseFloat(factor1)*parseFloat(factor2));
-                display.innerHTML =parseFloat(total);
-                acomodarDisplay()
-           });
-        };
+            if(operador=="por"){
+               var factor1=display.innerHTML;
+               display.innerHTML=" ";
+               formatearIgual();
+               igual.addEventListener("click",function(ev){
+                    ev.preventDefault();
+                    var factor2=display.innerHTML;
+                    var totalPor=(parseFloat(factor1)*parseFloat(factor2));
+                    var totalPantallaPor=String(totalPor).slice(0,8);
+                    display.innerHTML =parseFloat(totalPantallaPor);
+               });
+            };
 
-        if(operador="dividido"){
-           var factor1=display.innerHTML;
-           display.innerHTML="0";
-           igual.addEventListener("click",function(){
-                var factor2=display.innerHTML;
-                var total=(parseFloat(factor1)/parseFloat(factor2));
-                display.innerHTML =parseFloat(total);
-                acomodarDisplay()
-           });
-        };
+            if(operador=="dividido"){
+               var factor1=display.innerHTML;
+               display.innerHTML=" ";
+               formatearIgual();
+               igual.addEventListener("click",function(ev){
+                    ev.preventDefault();
+                    var factor2=display.innerHTML;
+                    var totalDividido=(parseFloat(factor1)/parseFloat(factor2));
+                    var totalPantallaDividido=String(totalDividido).slice(0,8);
+                    display.innerHTML =parseFloat(totalPantallaDividido);
+               });
+            };
+
       };
 
-
-
-   //**Boton ON/C para borrar display y poner cero**//
-   on.addEventListener("click",function(){
-       display.innerHTML="0";
-   });
+     //**Boton ON/C para borrar display y poner cero**//
+     on.addEventListener("click", function () {
+        display.innerHTML = "0";
+        formatearIgual();
+        });
  }
-  //**Inicializa Calculadora**//
 };
+
+//**Inicializa Calculadora**//
 calculadora.inicializar();
