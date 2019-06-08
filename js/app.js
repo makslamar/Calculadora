@@ -196,11 +196,37 @@ var calculadora = {
         escribirSign();
     });
 
+    mas.addEventListener("click",function(){
+        calculo("mas");
+    });
+
+    menos.addEventListener("click",function(){
+        calculo("menos");
+    });
+
+    por.addEventListener("click",function(){
+        calculo("por");
+    });
+
+    dividido.addEventListener("click",function(){
+        calculo("dividido");
+    });
+
+    function acomodarDisplay(){
+       var cadena = display.innerHTML;
+       var numero = parseFloat(cadena);
+       if (cadena.lenght>limite){
+           if(numero - numero.toFixed(0)==0){
+              display.innerHTML = numero;
+           } else{display.innerHTML = parseFloat(cadena).toPrecision(8)}
+       }
+    }
+
     function escribir(numero){
        if(display.innerHTML.length<8){
-          if (display.textContent!="0"){
-            display.textContent+=numero;
-          } else {display.textContent=numero;}
+          if (display.innerHTML!="0"){
+            display.innerHTML+=numero;
+          } else {display.innerHTML=numero;}
        }
      }
 
@@ -211,16 +237,64 @@ var calculadora = {
      };
 
      function escribirSign(){
-       if(display.textContent!="0"){
+       if(display.innerHTML!="0"){
          display.innerHTML=display.innerHTML*-1
        }
      };
 
 
+     function calculo(operador){
+
+        if(operador="mas"){
+           var sumando1=display.innerHTML;
+           display.innerHTML="0";
+           igual.addEventListener("click",function(){
+                var sumando2=display.innerHTML;
+                var total=(parseFloat(sumando1)+parseFloat(sumando2));
+                display.innerHTML =parseFloat(total);
+                acomodarDisplay()
+           });
+        };
+
+        if(operador="menos"){
+           var minuendo=display.innerHTML;
+           display.innerHTML="0";
+           igual.addEventListener("click",function(){
+                var sustraendo=display.innerHTML;
+                var total=((parseFloat(minuendo))-(parseFloat(sustraendo)));
+                display.innerHTML =parseFloat(total);
+                acomodarDisplay()
+           });
+        };
+
+        if(operador="por"){
+           var factor1=display.innerHTML;
+           display.innerHTML="0";
+           igual.addEventListener("click",function(){
+                var factor2=display.innerHTML;
+                var total=(parseFloat(factor1)*parseFloat(factor2));
+                display.innerHTML =parseFloat(total);
+                acomodarDisplay()
+           });
+        };
+
+        if(operador="dividido"){
+           var factor1=display.innerHTML;
+           display.innerHTML="0";
+           igual.addEventListener("click",function(){
+                var factor2=display.innerHTML;
+                var total=(parseFloat(factor1)/parseFloat(factor2));
+                display.innerHTML =parseFloat(total);
+                acomodarDisplay()
+           });
+        };
+      };
+
+
 
    //**Boton ON/C para borrar display y poner cero**//
    on.addEventListener("click",function(){
-       display.textContent="0";
+       display.innerHTML="0";
    });
  }
   //**Inicializa Calculadora**//
